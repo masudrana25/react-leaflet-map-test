@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import icon from './placeholder.png';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 
 
 function App() {
@@ -44,25 +45,51 @@ function App() {
         scrollWheelZoom={false}
         style={{ width: '1000px', height: '800px' }}
       >
-          <TileLayer
+        <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></TileLayer>
-        
-        {
-          data.map((data) => (
-            <Marker key={data.id} position={data.position} icon={customIcon}>
-              <Popup>
-                {data.name}
-              </Popup>
-            </Marker>
-          ))
-        }
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
+        </TileLayer>
 
-          {/* <Marker position={[51.505, -0.09]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker> */}
+        {/* <TileLayer
+            attribution='Stamen Terrain Background'
+            url="https://tiles.stadiamaps.com/tiles/stamen_terrain_background/{z}/{x}/{y}{r}.png">
+        </TileLayer> */}
+
+        {/* API NEED as it is premium */}
+        {/* <TileLayer
+            attribution='Stamen Terrain Background'
+            url="https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png">
+        </TileLayer> */}
+
+        {/* <TileLayer
+            attribution='World_Street_Map'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}">
+        </TileLayer> */}
+
+         {/* API NEED as it is premium */}
+         {/* <TileLayer
+            attribution='landscape'
+            url="https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png">
+        </TileLayer> */}
+
+         {/* API NEED as it is premium */}
+         {/* <TileLayer
+            attribution='landscape'
+            url="https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png">
+        </TileLayer> */}
+        
+        <MarkerClusterGroup chunkedLoading >
+          {
+            data.map((data) => (
+              <Marker key={data.id} position={data.position} icon={customIcon}>
+                <Popup>
+                  {data.name}
+                </Popup>
+              </Marker>
+            ))
+          }
+        </MarkerClusterGroup>
+
       </MapContainer>
 
     </div>
