@@ -1,6 +1,6 @@
 import './App.css';
 import { React } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import icon from './placeholder.png';
@@ -82,9 +82,17 @@ function App() {
           {
             data.map((data) => (
               <Marker key={data.id} position={data.position} icon={customIcon}>
-                <Popup>
+                {/* <Popup>
                   {data.name}
+                </Popup> */}
+
+                {/* Marker popup with large scale or div */}
+                <Popup>
+                  <div className='popupDetails'>Marker popup with large scale or div</div>
                 </Popup>
+                <Tooltip>Tooltip for Marker</Tooltip>
+                
+
               </Marker>
             ))
           }
