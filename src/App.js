@@ -4,37 +4,14 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import icon from './placeholder.png';
-import MarkerClusterGroup from 'react-leaflet-cluster';
-
+import { popupContent, popupHead, popupText, okText  } from './popupStyle';
+import stationData from './water_level_station_BD.json';
 
 function App() {
-  const data = [
-  {
-    id: 1,
-      name: 'Buriganga',
-      position: [23.746215,90.4902],
-     WL: 24.4,
-      DWL: 34.5
-  },
-  {
-    id: 2,
-    name: 'Buriganga',
-    position: [23.826215,90.5902 ],
-    WL: 24.4,
-    DWL: 34.5
-  },
-  {
-    id: 3,
-    name: 'Buriganga',
-    position: [23.926215, 90.6902 ],
-    WL: 24.4,
-    DWL: 34.5
-  }
-];
 
   const customIcon = new Icon({
     iconUrl: `${icon}`,
-    iconSize: [35,35]
+    iconSize: [25,25]
   });
 
   return (
@@ -78,25 +55,36 @@ function App() {
             url="https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png">
         </TileLayer> */}
         
-        <MarkerClusterGroup chunkedLoading >
+        
           {
-            data.map((data) => (
-              <Marker key={data.id} position={data.position} icon={customIcon}>
-                {/* <Popup>
-                  {data.name}
-                </Popup> */}
-
-                {/* Marker popup with large scale or div */}
-                <Popup>
-                  <div className='popupDetails'>Marker popup with large scale or div</div>
-                </Popup>
-                <Tooltip>Tooltip for Marker</Tooltip>
+            stationData?.map((data) => (
+              <Marker position={[data.latitude, data.longitude]} icon={customIcon}>
                 
+                {/* Marker popup with large scale or div */}
+                <Popup className='request-popup'>
+                  {/*here, className has no working value */}
+                  <div style={popupContent}>
+                    
+                    <div className="m-2" style={popupHead}>
+                      Station Name :  {data.stationName}
+                    </div>
+                    <span style={popupText}>
+                      Station Id : {data.stationID} <br />
+                      River Name : {data.riverName} <br />
+                      District : {data.district} <br />
+                      Upazila : {data.upazila} <br />
 
+                    </span>
+                    <div className="m-2" style={okText}>
+                      Okey
+                    </div>
+                  </div>
+                </Popup>
+
+                <Tooltip>{data.stationName}</Tooltip>
               </Marker>
             ))
           }
-        </MarkerClusterGroup>
 
       </MapContainer>
 
